@@ -60,7 +60,7 @@ function handleGuess() {
     if (wordDisplay.indexOf(guessInput) > -1) {
         document.getElementById("gameStatus").innerHTML ="You've already guessed that letter! Try another one.";
         document.getElementById("form").reset();
-    } else if (regExp.test(guessInput)) {
+    } else if (regExp.test(guessInput) || guessInput == "") {
         document.getElementById("gameStatus").innerHTML ="You can only guess the letters A to Z";
         document.getElementById("form").reset();
     }else { 

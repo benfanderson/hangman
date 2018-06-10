@@ -1,4 +1,4 @@
-const words = ["cat", "dog", "boy", "girl", "run", "jump"];
+const words = ["CAT", "DOG", "BOY", "GIRL", "RUN", "JUMP" ];
 const targetWord = words[Math.floor(Math.random()*words.length)];
 const letters = targetWord.split("");
 let rightGuesses = 0;
@@ -55,11 +55,15 @@ function rightLetter() {
 }
 
 function handleGuess() {
-    const guessInput = document.getElementById("guessInput").value;
+    const guessInput = document.getElementById("guessInput").value.toUpperCase();
+    regExp = /[^A-Z]/;
     if (wordDisplay.indexOf(guessInput) > -1) {
         document.getElementById("gameStatus").innerHTML ="You've already guessed that letter! Try another one.";
         document.getElementById("form").reset();
-    } else { 
+    } else if (regExp.test(guessInput)) {
+        document.getElementById("gameStatus").innerHTML ="You can only guess the letters A to Z";
+        document.getElementById("form").reset();
+    }else { 
     check(guessInput);
     document.getElementById("form").reset();
     }

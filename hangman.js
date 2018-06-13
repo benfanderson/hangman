@@ -5,31 +5,40 @@ let rightGuesses = 0;
 let wrongGuesses = 0;
 let guessedLetters =[];
 
+// Checks player's guess against letters in targetWord
 function check(value) {
         newLetter = value;
         yourGuesses = document.getElementById("yourGuesses");
+        
+        // Lists player's guesses
         yourGuesses.innerHTML = "Your guesses: " + guessedLetters;
+
+        // Player has won the game
         if (letters.includes(value) && rightGuesses == (letters.length-1)) {
             wordDisplay[letters.indexOf(value)] = value;
             document.getElementById("guessWord").innerHTML = "Here is your word: " + wordDisplay;
             showWin();
-        }
-
+        } 
+        
+        // Player guesses right letter
         else if ( letters.includes(value)) {
             wordDisplay[letters.indexOf(value)] = value;
             document.getElementById("guessWord").innerHTML = "Here is your word: " + wordDisplay;
             rightLetter();
-        }
-
+        } 
+        
+        // Player has lost the game
         else if (letters.includes(value) == false && wrongGuesses > 4) { 
             showLoss();
-        }
 
-        else if (letters.includes(value) == false) {
+        // Player guesses wrong letter    
+        } else if (letters.includes(value) == false) {
             wrongLetter();
         }
 }
 
+
+// Splits targetWord into array of letters for player to guess
 function getLetters() {
     wordDisplay =Array(letters.length+1).join("_");
     wordDisplay = wordDisplay.split("");
@@ -38,19 +47,19 @@ function getLetters() {
 }
 
 function showWin() {
-    document.getElementById("gameStatus").innerHTML = "You win! You guessed " + targetWord;
+    document.getElementById("form").innerHTML = "You win! You guessed " + targetWord;
+    hangmanPic = document.getElementById("hangmanPic");
+    hangmanPic.src = "images/hangmanwin.jpg";
 }
 
 function showLoss() {
-    document.getElementById("form").reset();
-    document.getElementById("gameStatus").innerHTML = "Better luck next time.";
+    document.getElementById("form").innerHTML = "Better luck next time.";
     hangmanPic = document.getElementById("hangmanPic");
     hangmanPic.src = "images/hangman"+(wrongGuesses+1)+".jpg";
 }
 
 function wrongLetter() {
     wrongGuesses = wrongGuesses + 1;
-    document.getElementById("form").reset();
     document.getElementById("gameStatus").innerHTML = "Sorry, " + newLetter + " is not a letter in the word. You have " + (6-wrongGuesses) + " guesses left.";
     hangmanPic = document.getElementById("hangmanPic");
     hangmanPic.src = "images/hangman"+wrongGuesses+".jpg";
@@ -70,14 +79,14 @@ function handleGuess() {
     } else if (regExp.test(guessInput) || guessInput == "") {
         document.getElementById("gameStatus").innerHTML ="You can only guess the letters A to Z";
         document.getElementById("form").reset();
-    }else { 
-          
+    } else { 
     guessedLetters.push(guessInput);    
     check(guessInput);
     document.getElementById("form").reset();
     }
 }
 
+// Lets user submit guess using enter/return key
 function keyGuess(e) {
     if (e.keyCode == 13){
       handleGuess();
@@ -95,14 +104,14 @@ function init() {
     getLetters();
 
     // Guess button onclick handler
-  const guessButton = document.getElementById("guessButton");
-  guessButton.onclick = handleGuess;
+    const guessButton = document.getElementById("guessButton");
+    guessButton.onclick = handleGuess;
 
-  // Enter onkeydown handler
-  const guessInput = document.getElementById("guessInput");
-  guessInput.onkeydown = keyGuess;
+    // Enter onkeydown handler
+    const guessInput = document.getElementById("guessInput");
+    guessInput.onkeydown = keyGuess;
 
-  
-  const newGame = document.getElementById("newGame");
-  newGame.onclick = newHangman;
+    //New game button onclick handler   
+    const newGame = document.getElementById("newGame");
+    newGame.onclick = newHangman;
 }

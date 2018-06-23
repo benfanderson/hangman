@@ -28,7 +28,7 @@ body {
     width: 60%;
     height: 100%;
     margin: auto;
-    padding: 1% 3%;
+    padding: 0.5% 3%;
     background-color: white;
     }
     
@@ -37,18 +37,23 @@ body {
         margin-bottom: 2%;
     }
 
-    #form{
-        font-size: 1.5em;
+    #guessInput, #guessButton{
+        font-size: 1em;
         margin-bottom: 3%;
     }
 
-    #guessWord, #yourGuesses, #newGame {
+    #guessWord, #form, #yourGuesses, #newGame{
         font-size: 1.5em;
         margin-bottom: 3%;
     }
 
     #hangmanPic{
         width: 60%;
+        margin: 0 15%;
+    }
+
+    #guessButton, #newGame {
+        padding: 0.2%;
     }
 
 }

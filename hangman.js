@@ -1,4 +1,3 @@
-// const words = ["CAT", "DOG", "BOY", "GIRL", "RUN", "JUMP" ];
 const words = ["CAT", "DOG", "BOY", "GIRL", "RUN", "JUMP", "ACRE", "BRICK", "CHOSE", "DEPTH", "EXIST", "FILM", "GRAB", "HABIT", "KID", "LUNG", "MELT", "NEIGHBOUR", "OPEN", "POLICE", "RHYME", "SALE", "THUMB", "WEALTH", "ZOO"];
 const targetWord = words[Math.floor(Math.random()*words.length)];
 const letters = targetWord.split("");

@@ -53,6 +53,7 @@ function showWin() {
 }
 
 function showLoss() {
+    document.getElementById("guessWord").innerHTML = "Here is your word: " + targetWord;
     document.getElementById("form").innerHTML = "Better luck next time.";
     hangmanPic = document.getElementById("hangmanPic");
     hangmanPic.src = "images/hangman"+(wrongGuesses+1)+".jpg";

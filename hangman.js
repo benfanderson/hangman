@@ -14,25 +14,26 @@ function check(value) {
         yourGuesses.innerHTML = "Your guesses: " + guessedLetters;
 
         // Player has won the game
-        if (letters.includes(value) && rightGuesses == (letters.length-1)) {
+        if (letters.indexOf(value) > -1 && rightGuesses == (letters.length-1)) {
             wordDisplay[letters.indexOf(value)] = value;
             document.getElementById("guessWord").innerHTML = "Here is your word: " + wordDisplay;
             showWin();
         } 
         
         // Player guesses right letter
-        else if ( letters.includes(value)) {
+        else if (letters.indexOf(value) > -1) {
             wordDisplay[letters.indexOf(value)] = value;
             document.getElementById("guessWord").innerHTML = "Here is your word: " + wordDisplay;
             rightLetter();
         } 
         
         // Player has lost the game
-        else if (letters.includes(value) == false && wrongGuesses > 4) { 
+        else if (letters.indexOf(value) == -1 && wrongGuesses > 4) { 
             showLoss();
+        }
 
         // Player guesses wrong letter    
-        } else if (letters.includes(value) == false) {
+        else if (letters.indexOf(value) == -1) {
             wrongLetter();
         }
 }

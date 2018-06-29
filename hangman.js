@@ -73,6 +73,7 @@ function rightLetter() {
 }
 
 function handleGuess(event) {
+    // Stops function attempting to submit data to non-existent server
     event.preventDefault();
     const guessInput = document.getElementById("guessInput").value.toUpperCase(); 
     regExp = /[^A-Z]/;
@@ -92,10 +93,14 @@ function handleGuess(event) {
 
 // Lets user submit guess using enter/return key
 function keyGuess(e) {
-    if (e.keyCode == 13){
-      handleGuess();
-      return false;
-   }
+    // Prevents Uncaught TypeError when enter key is used to call function
+    if (typeof(event.preventDefault) == "undefined") {
+        if (e.keyCode == 13){
+            handleGuess();
+            return false;
+         }
+    }
+    
 }
 
 function newHangman() {

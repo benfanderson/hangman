@@ -72,7 +72,8 @@ function rightLetter() {
     document.getElementById("gameStatus").innerHTML = "Well done! " + newLetter + " is a letter in your word. Keep going.";
 }
 
-function handleGuess() {
+function handleGuess(event) {
+    event.preventDefault();
     const guessInput = document.getElementById("guessInput").value.toUpperCase(); 
     regExp = /[^A-Z]/;
     if (wordDisplay.indexOf(guessInput) > -1 || guessedLetters.indexOf(guessInput) > - 1) {
@@ -86,6 +87,7 @@ function handleGuess() {
     check(guessInput);
     document.getElementById("form").reset();
     }
+    
 }
 
 // Lets user submit guess using enter/return key

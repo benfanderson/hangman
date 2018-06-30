@@ -94,7 +94,7 @@ function handleGuess(event) {
 // Lets user submit guess using enter/return key
 function keyGuess(e) {
     // Prevents Uncaught TypeError when enter key is used to call function
-    if (typeof(event.preventDefault) == "undefined") {
+    if (typeof(e.preventDefault) == "undefined") {
         if (e.keyCode == 13){
             handleGuess();
             return false;

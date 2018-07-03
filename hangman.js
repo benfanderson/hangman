@@ -7,37 +7,38 @@ let guessedLetters =[];
 
 // Checks player's guess against letters in targetWord
 function check(value) {
-        newLetter = value;
-        yourGuesses = document.getElementById("yourGuesses");
-        
-        // Lists player's guesses
-        yourGuesses.innerHTML = "Your guesses: " + guessedLetters;
-
-        // Player has won the game
-        if (letters.indexOf(value) > -1 && rightGuesses == (letters.length-1)) {
-            wordDisplay[letters.indexOf(value)] = value;
+    newLetter = value;
+    yourGuesses = document.getElementById("yourGuesses");
+    // Lists player's guesses
+    yourGuesses.innerHTML = "Your guesses: " + guessedLetters;        
+    // Letter is present in word
+    if (letters.indexOf(value) > -1) {
+        let i = -1;
+        // While loop handles words with double letters
+        while ((i= letters.indexOf(value, i+1)) != -1) {
+            wordDisplay[i] = value;
+            rightGuesses = rightGuesses + 1;
             document.getElementById("guessWord").innerHTML = "Here is your word: " + wordDisplay;
-            showWin();
-        } 
-        
-        // Player guesses right letter
-        else if (letters.indexOf(value) > -1) {
-            wordDisplay[letters.indexOf(value)] = value;
-            document.getElementById("guessWord").innerHTML = "Here is your word: " + wordDisplay;
-            rightLetter();
-        } 
-        
-        // Player has lost the game
-        else if (letters.indexOf(value) == -1 && wrongGuesses > 4) { 
-            showLoss();
+            if (rightGuesses == letters.length) {
+                // Player has won the game
+                showWin();
+            } else {
+                // Player guesses right letter
+                rightLetter();
+            }
         }
-
-        // Player guesses wrong letter    
-        else if (letters.indexOf(value) == -1) {
+    // Letter is not present in word    
+    } else if (letters.indexOf(value) == -1) {
+        wrongGuesses = wrongGuesses +1;
+        if (wrongGuesses == 6) {
+            // Player has lost the game
+            showLoss();
+        } else {
+            // Player guesses wrong letter
             wrongLetter();
         }
+    }
 }
-
 
 // Splits targetWord into array of letters for player to guess
 function getLetters() {
@@ -57,19 +58,18 @@ function showLoss() {
     document.getElementById("guessWord").innerHTML = "Here is your word: " + targetWord;
     document.getElementById("form").innerHTML = "Better luck next time.";
     hangmanPic = document.getElementById("hangmanPic");
-    hangmanPic.src = "images/hangman"+(wrongGuesses+1)+".jpg";
+    hangmanPic.src = "images/hangman6.jpg";
 }
 
 function wrongLetter() {
-    wrongGuesses = wrongGuesses + 1;
     document.getElementById("gameStatus").innerHTML = "Sorry, " + newLetter + " is not a letter in the word. You have " + (6-wrongGuesses) + " guesses left.";
     hangmanPic = document.getElementById("hangmanPic");
     hangmanPic.src = "images/hangman"+wrongGuesses+".jpg";
 }
 
 function rightLetter() { 
-    rightGuesses = rightGuesses + 1;
     document.getElementById("gameStatus").innerHTML = "Well done! " + newLetter + " is a letter in your word. Keep going.";
+    
 }
 
 function handleGuess(event) {

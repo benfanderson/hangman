@@ -21,6 +21,10 @@ h1{
     margin-bottom: 3%;
 }
 
+#guessButton { 
+    background-color: rgb(211, 208, 208);
+}
+
 #gameStatus{
     max-width: 98%;
 }
@@ -35,6 +39,7 @@ h1{
 
 #newGame {
     padding: 0.2% 0.2% 0.5% 0.2%;
+    background-color: rgb(211, 208, 208);
 }
 
 /*View for tablets*/

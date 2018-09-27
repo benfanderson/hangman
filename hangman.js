@@ -7,7 +7,6 @@ let guessedLetters =[];
 
 // Checks player's guess against letters in targetWord
 function check(value) {
-    newLetter = value;
     yourGuesses = document.getElementById("yourGuesses");
     // Lists player's guesses
     yourGuesses.innerHTML = "Your guesses: " + guessedLetters;        
@@ -24,7 +23,7 @@ function check(value) {
                 showWin();
             } else {
                 // Player guesses right letter
-                rightLetter();
+                rightLetter(value);
             }
         }
     // Letter is not present in word    
@@ -35,7 +34,7 @@ function check(value) {
             showLoss();
         } else {
             // Player guesses wrong letter
-            wrongLetter();
+            wrongLetter(value);
         }
     }
 }
@@ -61,14 +60,14 @@ function showLoss() {
     hangmanPic.src = "images/hangman6.jpg";
 }
 
-function wrongLetter() {
-    document.getElementById("gameStatus").innerHTML = "Sorry, " + newLetter + " is not a letter in the word. You have " + (6-wrongGuesses) + " guesses left.";
+function wrongLetter(value) {
+    document.getElementById("gameStatus").innerHTML = "Sorry, " + value + " is not a letter in the word. You have " + (6-wrongGuesses) + " guesses left.";
     hangmanPic = document.getElementById("hangmanPic");
     hangmanPic.src = "images/hangman"+wrongGuesses+".jpg";
 }
 
-function rightLetter() { 
-    document.getElementById("gameStatus").innerHTML = "Well done! " + newLetter + " is a letter in your word. Keep going.";
+function rightLetter(value) { 
+    document.getElementById("gameStatus").innerHTML = "Well done! " + value + " is a letter in your word. Keep going.";
     
 }
 

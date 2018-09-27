@@ -1,6 +1,4 @@
 const words = ["CAT", "DOG", "BOY", "GIRL", "RUN", "JUMP", "ACRE", "BRICK", "CHOSE", "DEPTH", "EXIST", "FILM", "GRAB", "HABIT", "KID", "LUNG", "MELT", "NEIGHBOUR", "OPEN", "POLICE", "RHYME", "SALE", "THUMB", "WEALTH", "ZOO"];
-const targetWord = words[Math.floor(Math.random()*words.length)];
-const letters = targetWord.split("");
 let rightGuesses = 0;
 let wrongGuesses = 0;
 let guessedLetters =[];
@@ -21,6 +19,8 @@ function check(value) {
 
 // Splits targetWord into array of letters for player to guess
 function getLetters() {
+    targetWord = words[Math.floor(Math.random()*words.length)];
+    letters = targetWord.split("");
     wordDisplay =Array(letters.length+1).join("_");
     wordDisplay = wordDisplay.split("");
     document.getElementById("guessWord").innerHTML = "Here is your word: " + wordDisplay;

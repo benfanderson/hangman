@@ -3,6 +3,16 @@ let rightGuesses = 0;
 let wrongGuesses = 0;
 let guessedLetters =[];
 
+// Chooses word and splits it into array of letters for player to guess
+function getLetters() {
+    targetWord = words[Math.floor(Math.random()*words.length)];
+    letters = targetWord.split("");
+    wordDisplay =Array(letters.length+1).join("_");
+    wordDisplay = wordDisplay.split("");
+    document.getElementById("guessWord").innerHTML = "Here is your word: " + wordDisplay;
+    return wordDisplay;
+}
+
 // Checks player's guess against letters in targetWord
 function check(value) {
     yourGuesses = document.getElementById("yourGuesses");
@@ -15,16 +25,6 @@ function check(value) {
         // Letter is not present in word 
         letterAbsent(value); 
     }
-}
-
-// Splits targetWord into array of letters for player to guess
-function getLetters() {
-    targetWord = words[Math.floor(Math.random()*words.length)];
-    letters = targetWord.split("");
-    wordDisplay =Array(letters.length+1).join("_");
-    wordDisplay = wordDisplay.split("");
-    document.getElementById("guessWord").innerHTML = "Here is your word: " + wordDisplay;
-    return wordDisplay;
 }
 
 function letterPresent(value) {

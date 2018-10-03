@@ -131,21 +131,3 @@ window.onload = function() {
     newGame.onclick = newHangman;
 
 }  
-
-// window.onload = init;
-
-// function init() {
-//     getLetters();
-
-//     // Guess button onclick handler
-//     const guessButton = document.getElementById("guessButton");
-//     guessButton.onclick = handleGuess;
-
-//     // Enter onkeydown handler
-//     const guessInput = document.getElementById("guessInput");
-//     guessInput.onkeydown = keyGuess;
-
-//     //New game button onclick handler   
-//     const newGame = document.getElementById("newGame");
-//     newGame.onclick = newHangman;
-// }

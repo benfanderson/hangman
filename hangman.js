@@ -1,89 +1,38 @@
-const words = ["CAT", "DOG", "BOY", "GIRL", "RUN", "JUMP", "ACRE", "BRICK", "CHOSE", "DEPTH", "EXIST", "FILM", "GRAB", "HABIT", "KID", "LUNG", "MELT", "NEIGHBOUR", "OPEN", "POLICE", "RHYME", "SALE", "THUMB", "WEALTH", "ZOO"];
-let rightGuesses = 0;
-let wrongGuesses = 0;
-let guessedLetters =[];
-
-// Chooses word and splits it into array of letters for player to guess
-function getLetters() {
-    targetWord = words[Math.floor(Math.random()*words.length)];
-    letters = targetWord.split("");
-    wordDisplay =Array(letters.length+1).join("_");
-    wordDisplay = wordDisplay.split("");
-    document.getElementById("guessWord").innerHTML = "Here is your word: " + wordDisplay;
-    return wordDisplay;
-}
-
-// Checks player's guess against letters in targetWord
-function check(value) {
-    yourGuesses = document.getElementById("yourGuesses");
-    // Lists player's guesses
-    yourGuesses.innerHTML = "Your guesses: " + guessedLetters;        
-    if (letters.indexOf(value) > -1) {
-        // Letter is present in word
-        function letterPresent() {
-            let i = -1;
-            // While loop handles words with double letters
-            while ((i= letters.indexOf(value, i+1)) != -1) {
-                wordDisplay[i] = value;
-                rightGuesses = rightGuesses + 1;
-                document.getElementById("guessWord").innerHTML = "Here is your word: " + wordDisplay;
-                if (rightGuesses == letters.length) {
-                    // Player has won the game
-                    showWin();
-                } else {
-                    // Player guesses right letter
-                    rightLetter(value);
-                }
-            }
-        }
-        letterPresent();
-    } else if (letters.indexOf(value) == -1) {
-        // Letter is not present in word 
-        function letterAbsent() {
-            wrongGuesses = wrongGuesses +1;
-            if (wrongGuesses == 6) {
-                // Player has lost the game
-                showLoss();
-            } else {
-                // Player guesses wrong letter
-                wrongLetter(value);
-            }
-        }
-        letterAbsent(); 
-    }
-}
-
-function showWin() {
-    document.getElementById("form").innerHTML = "You win! You guessed " + targetWord;
-    hangmanPic = document.getElementById("hangmanPic");
-    hangmanPic.src = "images/hangmanwin.jpg";
-}
-
-function showLoss() {
-    document.getElementById("guessWord").innerHTML = "Here is your word: " + targetWord;
-    document.getElementById("form").innerHTML = "Better luck next time.";
-    hangmanPic = document.getElementById("hangmanPic");
-    hangmanPic.src = "images/hangman6.jpg";
-}
-
-function wrongLetter(value) {
-    document.getElementById("gameStatus").innerHTML = "Sorry, " + value + " is not a letter in the word. You have " + (6-wrongGuesses) + " guesses left.";
-    hangmanPic = document.getElementById("hangmanPic");
-    hangmanPic.src = "images/hangman"+wrongGuesses+".jpg";
-}
-
-function rightLetter(value) { 
-    document.getElementById("gameStatus").innerHTML = "Well done! " + value + " is a letter in your word. Keep going.";
-    
-}
-
-
 window.onload = function() {
-    getLetters();
+    const words = ["CAT", "DOG", "BOY", "GIRL", "RUN", "JUMP", "ACRE", "BRICK", "CHOSE", "DEPTH", "EXIST", "FILM", "GRAB", "HABIT", "KID", "LUNG", "MELT", "NEIGHBOUR", "OPEN", "POLICE", "RHYME", "SALE", "THUMB", "WEALTH", "ZOO"];
+    let rightGuesses = 0;
+    let wrongGuesses = 0;
+    let guessedLetters =[];
 
+    // Chooses word and splits it into array of letters for player to guess
+    function getLetters() {
+        targetWord = words[Math.floor(Math.random()*words.length)];
+        letters = targetWord.split("");
+        wordDisplay =Array(letters.length+1).join("_");
+        wordDisplay = wordDisplay.split("");
+        document.getElementById("guessWord").innerHTML = "Here is your word: " + wordDisplay;
+        return wordDisplay;
+    }
+
+    getLetters();
+    
     // Guess button onclick handler
     const guessButton = document.getElementById("guessButton");
-    guessButton.onclick = function(event) {
+    guessButton.onclick = handleGuess;
+
+     // Lets user submit guess using enter/return key
+     const guessInput = document.getElementById("guessInput");
+     guessInput.onkeydown = function(e) {
+         // Prevents Uncaught TypeError when enter key is used to call function
+         if (typeof(e.preventDefault) == "undefined") {
+             if (e.keyCode == 13){
+                 handleGuess();
+                 return false;
+             }
+         }
+     }
+    
+     function handleGuess(event) {
         // Stops function attempting to submit data to non-existent server
         event.preventDefault();
         const guessInput = document.getElementById("guessInput").value.toUpperCase(); 
@@ -102,15 +51,56 @@ window.onload = function() {
 
     }
 
-    // Lets user submit guess using enter/return key
-    const guessInput = document.getElementById("guessInput");
-    guessInput.onkeydown = function(e) {
-        // Prevents Uncaught TypeError when enter key is used to call function
-        if (typeof(e.preventDefault) == "undefined") {
-            if (e.keyCode == 13){
-                handleGuess();
-                return false;
+    // Checks player's guess against letters in targetWord
+    function check(value) {
+        yourGuesses = document.getElementById("yourGuesses");
+        // Lists player's guesses
+        yourGuesses.innerHTML = "Your guesses: " + guessedLetters;        
+        if (letters.indexOf(value) > -1) {
+            // Letter is present in word
+            function letterPresent() {
+                let i = -1;
+                // While loop handles words with double letters
+                while ((i= letters.indexOf(value, i+1)) != -1) {
+                    wordDisplay[i] = value;
+                    rightGuesses = rightGuesses + 1;
+                    document.getElementById("guessWord").innerHTML = "Here is your word: " + wordDisplay;
+                    if (rightGuesses == letters.length) {
+                        // Player has won the game
+                        (function () {
+                            document.getElementById("form").innerHTML = "You win! You guessed " + targetWord;
+                            hangmanPic = document.getElementById("hangmanPic");
+                            hangmanPic.src = "images/hangmanwin.jpg";
+                        })();
+                    } else {
+                        // Player guesses right letter
+                        (function (){
+                            document.getElementById("gameStatus").innerHTML = "Well done! " + value + " is a letter in your word. Keep going.";
+                        })();
+                    }
+                }
             }
+            letterPresent();
+        } else if (letters.indexOf(value) == -1) {
+            // Letter is not present in word 
+            function letterAbsent() {
+                wrongGuesses = wrongGuesses +1;
+                if (wrongGuesses == 6) {
+                    (function (){
+                        document.getElementById("guessWord").innerHTML = "Here is your word: " + targetWord;
+                        document.getElementById("form").innerHTML = "Better luck next time.";
+                        hangmanPic = document.getElementById("hangmanPic");
+                        hangmanPic.src = "images/hangman6.jpg";
+                    })();
+                } else {
+                    (function (){
+                        document.getElementById("gameStatus").innerHTML = "Sorry, " + value + " is not a letter in the word. You have " + (6-wrongGuesses) + " guesses left.";
+                        hangmanPic = document.getElementById("hangmanPic");
+                        hangmanPic.src = "images/hangman"+wrongGuesses+".jpg";
+                    })();
+                }
+            }
+            letterAbsent(); 
         }
     }
 
@@ -119,5 +109,4 @@ window.onload = function() {
     newGame.onclick = function() {
         location.reload();
     }
-
 }  

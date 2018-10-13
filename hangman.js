@@ -1,27 +1,21 @@
 window.onload = function() {
+    
+    // Chooses word and splits it into array of letters for player to guess
     const words = ["CAT", "DOG", "BOY", "GIRL", "RUN", "JUMP", "ACRE", "BRICK", "CHOSE", "DEPTH", "EXIST", "FILM", "GRAB", "HABIT", "KID", "LUNG", "MELT", "NEIGHBOUR", "OPEN", "POLICE", "RHYME", "SALE", "THUMB", "WEALTH", "ZOO"];
     let rightGuesses = 0;
     let wrongGuesses = 0;
     let guessedLetters =[];
-
-    // Chooses word and splits it into array of letters for player to guess
-    function getLetters() {
-        targetWord = words[Math.floor(Math.random()*words.length)];
-        letters = targetWord.split("");
-        wordDisplay =Array(letters.length+1).join("_");
-        wordDisplay = wordDisplay.split("");
-        document.getElementById("guessWord").innerHTML = "Here is your word: " + wordDisplay;
-        return wordDisplay;
-    }
-
-    getLetters();
+    let targetWord = words[Math.floor(Math.random()*words.length)];
+    let letters = targetWord.split("");
+    let wordDisplay = Array(letters.length+1).join("_").split("");
+    document.getElementById("guessWord").innerHTML = "Here is your word: " + wordDisplay;
     
     // Guess button onclick handler
-    const guessButton = document.getElementById("guessButton");
+    guessButton = document.getElementById("guessButton");
     guessButton.onclick = handleGuess;
 
      // Lets user submit guess using enter/return key
-     const guessInput = document.getElementById("guessInput");
+     guessInput = document.getElementById("guessInput");
      guessInput.onkeydown = function(e) {
          // Prevents Uncaught TypeError when enter key is used to call function
          if (typeof(e.preventDefault) == "undefined") {
@@ -35,7 +29,7 @@ window.onload = function() {
      function handleGuess(event) {
         // Stops function attempting to submit data to non-existent server
         event.preventDefault();
-        const guessInput = document.getElementById("guessInput").value.toUpperCase(); 
+        guessInput = document.getElementById("guessInput").value.toUpperCase(); 
         regExp = /[^A-Z]/;
         if (wordDisplay.indexOf(guessInput) > -1 || guessedLetters.indexOf(guessInput) > - 1) {
             document.getElementById("gameStatus").innerHTML ="You've already guessed that letter! Try another one.";
@@ -105,7 +99,7 @@ window.onload = function() {
     }
 
     //New game button onclick handler   
-    const newGame = document.getElementById("newGame");
+    newGame = document.getElementById("newGame");
     newGame.onclick = function() {
         location.reload();
     }

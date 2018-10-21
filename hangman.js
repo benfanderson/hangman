@@ -14,9 +14,9 @@ window.onload = function() {
     guessButton = document.getElementById("guessButton");
     guessButton.onclick = handleGuess;
 
-     // Lets user submit guess using enter/return key
-     guessInput = document.getElementById("guessInput");
-     guessInput.onkeydown = function(e) {
+    // Lets user submit guess using enter/return key
+    guessInput = document.getElementById("guessInput");
+    guessInput.onkeydown = function(e) {
          // Prevents Uncaught TypeError when enter key is used to call function
          if (typeof(e.preventDefault) == "undefined") {
              if (e.keyCode == 13){
@@ -24,9 +24,9 @@ window.onload = function() {
                  return false;
              }
          }
-     }
+    }
     
-     function handleGuess(event) {
+    function handleGuess(event) {
         // Stops function attempting to submit data to non-existent server
         event.preventDefault();
         guessInput = document.getElementById("guessInput").value.toUpperCase(); 

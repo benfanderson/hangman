@@ -9,15 +9,15 @@ function getLetters() {
     letters = targetWord.split("");
     wordDisplay =Array(letters.length+1).join("_");
     wordDisplay = wordDisplay.split("");
-    document.getElementById("guessWord").innerHTML = "Here is your word: " + wordDisplay;
+    document.querySelector("#guessWord").innerHTML = `Here is your word: ${wordDisplay}`; 
     return wordDisplay;
 }
 
 // Checks player's guess against letters in targetWord
 function check(value) {
-    yourGuesses = document.getElementById("yourGuesses");
+    yourGuesses = document.querySelector("#yourGuesses");
     // Lists player's guesses
-    yourGuesses.innerHTML = "Your guesses: " + guessedLetters;        
+    yourGuesses.innerHTML = `Your guesses: ${guessedLetters}`;       
     if (letters.indexOf(value) > -1) {
         // Letter is present in word
         letterPresent(value);
@@ -33,7 +33,7 @@ function letterPresent(value) {
     while ((i= letters.indexOf(value, i+1)) != -1) {
         wordDisplay[i] = value;
         rightGuesses = rightGuesses + 1;
-        document.getElementById("guessWord").innerHTML = "Here is your word: " + wordDisplay;
+        document.querySelector("#guessWord").innerHTML =`Here is your word: ${wordDisplay}`;
         if (rightGuesses == letters.length) {
             // Player has won the game
             showWin();
@@ -57,26 +57,26 @@ function letterAbsent(value) {
 }
 
 function showWin() {
-    document.getElementById("form").innerHTML = "You win! You guessed " + targetWord;
+    document.querySelector("#form").innerHTML = `You win! You guessed ${targetWord}`;
     hangmanPic = document.getElementById("hangmanPic");
     hangmanPic.src = "images/hangmanwin.jpg";
 }
 
 function showLoss() {
-    document.getElementById("guessWord").innerHTML = "Here is your word: " + targetWord;
-    document.getElementById("form").innerHTML = "Better luck next time.";
+    document.querySelector("#guessWord").innerHTML = `Here is your word: ${targetWord}`
+    document.querySelector("#form").innerHTML = "Better luck next time.";
     hangmanPic = document.getElementById("hangmanPic");
     hangmanPic.src = "images/hangman6.jpg";
 }
 
 function wrongLetter(value) {
-    document.getElementById("gameStatus").innerHTML = "Sorry, " + value + " is not a letter in the word. You have " + (6-wrongGuesses) + " guesses left.";
+    document.querySelector("#gameStatus").innerHTML = `Sorry, ${value} is not a letter in the word. You have ${6-wrongGuesses} guesses left`;
     hangmanPic = document.getElementById("hangmanPic");
     hangmanPic.src = "images/hangman"+wrongGuesses+".jpg";
 }
 
 function rightLetter(value) { 
-    document.getElementById("gameStatus").innerHTML = "Well done! " + value + " is a letter in your word. Keep going.";
+    document.querySelector("#gameStatus").innerHTML =`Well done! ${value} is a letter in your word. Keep going.`
     
 }
 
@@ -86,15 +86,15 @@ function handleGuess(event) {
     const guessInput = document.getElementById("guessInput").value.toUpperCase(); 
     regExp = /[^A-Z]/;
     if (wordDisplay.indexOf(guessInput) > -1 || guessedLetters.indexOf(guessInput) > - 1) {
-        document.getElementById("gameStatus").innerHTML ="You've already guessed that letter! Try another one.";
-        document.getElementById("form").reset();
+        document.querySelector("#gameStatus").innerHTML ="You've already guessed that letter! Try another one.";
+        document.querySelector("#form").reset();
     } else if (regExp.test(guessInput) || guessInput == "") {
-        document.getElementById("gameStatus").innerHTML ="You can only guess the letters A to Z";
-        document.getElementById("form").reset();
+        document.querySelector("#gameStatus").innerHTML ="You can only guess the letters A to Z";
+        document.querySelector("#form").reset();
     } else { 
     guessedLetters.push(guessInput);    
     check(guessInput);
-    document.getElementById("form").reset();
+    document.querySelector("#form").reset();
     }
     
 }
@@ -119,15 +119,15 @@ window.onload = function() {
     getLetters();
 
     // Guess button onclick handler
-    const guessButton = document.getElementById("guessButton");
+    const guessButton = document.querySelector("#guessButton");
     guessButton.onclick = handleGuess;
 
     // Enter onkeydown handler
-    const guessInput = document.getElementById("guessInput");
+    const guessInput = document.querySelector("#guessInput");
     guessInput.onkeydown = keyGuess;
 
     //New game button onclick handler   
-    const newGame = document.getElementById("newGame");
+    const newGame = document.querySelector("#newGame");
     newGame.onclick = newHangman;
 
 }  

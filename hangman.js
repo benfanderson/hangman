@@ -108,26 +108,23 @@ function keyGuess(e) {
             return false;
          }
     }
-    
 }
 
-function newHangman() {
-    location.reload();
-  }
-
-window.onload = function() {
+$(document).ready(function(){
     getLetters();
 
     // Guess button onclick handler
-    const guessButton = document.querySelector("#guessButton");
-    guessButton.onclick = handleGuess;
+    $("#guessButton").click(function(event){
+        handleGuess(event);
+    });
 
     // Enter onkeydown handler
-    const guessInput = document.querySelector("#guessInput");
-    guessInput.onkeydown = keyGuess;
+    $("#guessInput").keydown(function(e){
+        keyGuess(e);
+    });
 
-    //New game button onclick handler   
-    const newGame = document.querySelector("#newGame");
-    newGame.onclick = newHangman;
-
-}  
+    //New game button onclick handler  
+    $("#newGame").click(function(){
+        location.reload();
+    });
+});

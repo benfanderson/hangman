@@ -9,15 +9,14 @@ function getLetters() {
     letters = targetWord.split("");
     wordDisplay =Array(letters.length+1).join("_");
     wordDisplay = wordDisplay.split("");
-    document.querySelector("#guessWord").innerHTML = `Here is your word: ${wordDisplay}`; 
+    $("#guessWord").text(`Here is your word: ${wordDisplay}`);
     return wordDisplay;
 }
 
 // Checks player's guess against letters in targetWord
 function check(value) {
-    yourGuesses = document.querySelector("#yourGuesses");
     // Lists player's guesses
-    yourGuesses.innerHTML = `Your guesses: ${guessedLetters}`;       
+    $("#yourGuesses").text(`Your guesses: ${guessedLetters}`)
     if (letters.indexOf(value) > -1) {
         // Letter is present in word
         letterPresent(value);
@@ -33,7 +32,7 @@ function letterPresent(value) {
     while ((i= letters.indexOf(value, i+1)) != -1) {
         wordDisplay[i] = value;
         rightGuesses = rightGuesses + 1;
-        document.querySelector("#guessWord").innerHTML =`Here is your word: ${wordDisplay}`;
+        $("#guessWord").text(`Here is your word: ${wordDisplay}`)
         if (rightGuesses == letters.length) {
             // Player has won the game
             showWin();
@@ -57,16 +56,14 @@ function letterAbsent(value) {
 }
 
 function showWin() {
-    document.querySelector("#form").innerHTML = `You win! You guessed ${targetWord}`;
-    hangmanPic = document.getElementById("hangmanPic");
-    hangmanPic.src = "images/hangmanwin.jpg";
+    $("#form").text(`You win! You guessed ${targetWord}`);
+    $("#hangmanPic").attr("src", "images/hangmanwin.jpg");
 }
 
 function showLoss() {
     document.querySelector("#guessWord").innerHTML = `Here is your word: ${targetWord}`
-    document.querySelector("#form").innerHTML = "Better luck next time.";
-    hangmanPic = document.getElementById("hangmanPic");
-    hangmanPic.src = "images/hangman6.jpg";
+    $("#form").text("Better luck next time.");
+    $("#hangmanPic").attr("src", "images/hangman6.jpg");
 }
 
 function wrongLetter(value) {

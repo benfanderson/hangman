@@ -61,20 +61,18 @@ function showWin() {
 }
 
 function showLoss() {
-    document.querySelector("#guessWord").innerHTML = `Here is your word: ${targetWord}`
+    $("#guessWord").text(`Here is your word: ${targetWord}`);
     $("#form").text("Better luck next time.");
     $("#hangmanPic").attr("src", "images/hangman6.jpg");
 }
 
 function wrongLetter(value) {
-    document.querySelector("#gameStatus").innerHTML = `Sorry, ${value} is not a letter in the word. You have ${6-wrongGuesses} guesses left`;
-    hangmanPic = document.getElementById("hangmanPic");
-    hangmanPic.src = "images/hangman"+wrongGuesses+".jpg";
+    $("#gameStatus"). text(`Sorry, ${value} is not a letter in the word. You have ${6-wrongGuesses} guesses left`);
+    $("#hangmanPic").attr("src", `images/hangman${wrongGuesses}.jpg`);
 }
 
 function rightLetter(value) { 
-    document.querySelector("#gameStatus").innerHTML =`Well done! ${value} is a letter in your word. Keep going.`
-    
+    $("#gameStatus").text(`Well done! ${value} is a letter in your word. Keep going.`)
 }
 
 function handleGuess(event) {

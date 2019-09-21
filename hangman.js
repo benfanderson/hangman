@@ -127,7 +127,6 @@ window.onload = function() {
     guessInput.focus();
 
     // Enter onkeydown handler
-    
     guessInput.onkeydown = keyGuess;
 
     //New game button onclick handler   

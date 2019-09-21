@@ -67,7 +67,7 @@ function showLoss() {
 }
 
 function wrongLetter(value) {
-    $("#gameStatus"). text(`Sorry, ${value} is not a letter in the word. You have ${6-wrongGuesses} guesses left`);
+    $("#gameStatus").text(`Sorry, ${value} is not a letter in the word. You have ${6-wrongGuesses} guesses left`);
     $("#hangmanPic").attr("src", `images/hangman${wrongGuesses}.jpg`);
 }
 
@@ -78,20 +78,19 @@ function rightLetter(value) {
 function handleGuess(event) {
     // Stops function attempting to submit data to non-existent server
     event.preventDefault();
-    const guessInput = document.getElementById("guessInput").value.toUpperCase(); 
+    const guessInput = $("#guessInput").val().toUpperCase();
     regExp = /[^A-Z]/;
     if (wordDisplay.indexOf(guessInput) > -1 || guessedLetters.indexOf(guessInput) > - 1) {
-        document.querySelector("#gameStatus").innerHTML ="You've already guessed that letter! Try another one.";
-        document.querySelector("#form").reset();
+        $("#gameStatus").text("You've already guessed that letter! Try another one.")
+        $("#form")[0].reset();
     } else if (regExp.test(guessInput) || guessInput == "") {
-        document.querySelector("#gameStatus").innerHTML ="You can only guess the letters A to Z";
-        document.querySelector("#form").reset();
+        $("#gameStatus").text("You can only guess the letters A to Z");
+        $("#form")[0].reset();
     } else { 
     guessedLetters.push(guessInput);    
     check(guessInput);
-    document.querySelector("#form").reset();
+    $("#form")[0].reset();
     }
-    
 }
 
 // Lets user submit guess using enter/return key

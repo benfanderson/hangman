@@ -122,8 +122,12 @@ window.onload = function() {
     const guessButton = document.querySelector("#guessButton");
     guessButton.onclick = handleGuess;
 
-    // Enter onkeydown handler
+    //Focus on guess input field on page load
     const guessInput = document.querySelector("#guessInput");
+    guessInput.focus();
+
+    // Enter onkeydown handler
+    
     guessInput.onkeydown = keyGuess;
 
     //New game button onclick handler   
